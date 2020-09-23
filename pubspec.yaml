@@ -30,7 +30,9 @@ dependencies:
   cupertino_icons: ^0.1.3
   flutter_rating_bar: ^3.0.1+1
   http: ^0.12.2
-  
+  get: ^3.10.2
+  icon_shadow: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -66,7 +68,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Gilroy-Light.otf
         - asset: assets/fonts/Gilroy-ExtraBold.otf
-          weight: 700
+          weight: 400
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

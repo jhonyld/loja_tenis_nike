@@ -11,9 +11,11 @@ class Body extends StatelessWidget {
   const Body({Key key, this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.only(top: 40),
-      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(top: 10),
+      width: size.width,
+      height: size.height,
       color: Colors.white,
       child: Column(
         children: <Widget>[
@@ -23,15 +25,15 @@ class Body extends StatelessWidget {
                   height: 35,
                 ),
           SizedBox(
-            height: 20,
+            height: 15,
           ),
           ImageCard(product: product),
           SizedBox(
-            height: 25,
+            height: 15,
           ),
           Flexible(
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.35,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(

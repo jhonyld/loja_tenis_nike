@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:loja_tenis_nike/models/product.dart';
+import 'package:loja_tenis_nike/controller/controller.dart';
 import 'package:loja_tenis_nike/screens/details/details.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -18,7 +20,7 @@ class ProductGrid extends StatelessWidget {
           crossAxisCount: 2,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
-          childAspectRatio: 0.75,
+          childAspectRatio: 0.73,
         ),
         itemBuilder: (context, index) => ProductCard(
           product: lista[index],
@@ -28,13 +30,27 @@ class ProductGrid extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard({
     Key key,
     this.product,
   }) : super(key: key);
 
   final Product product;
+
+  @override
+  _ProductCardState createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool like = false;
+
+  void toglleLike() {
+    setState(() {
+      like = !like;
+      print(like);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +60,8 @@ class ProductCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => Details(
-              product: product,
+              product: widget.product,
+              like: like,
             ),
           ),
         );
@@ -65,11 +82,11 @@ class ProductCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  product.descount != null
+                  widget.product.descount != null
                       ? Container(
                           alignment: Alignment.center,
                           child: Text(
-                            '${product.descount}%',
+                            '${widget.product.descount}%',
                             style: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
@@ -85,10 +102,12 @@ class ProductCard extends StatelessWidget {
                   IconButton(
                       icon: Icon(
                         Icons.favorite,
-                        color: Colors.grey,
+                        color: like ? Colors.red : Colors.grey,
                         size: 18,
                       ),
-                      onPressed: () {})
+                      onPressed: () {
+                        toglleLike();
+                      }),
                 ],
               ),
             ),
@@ -103,7 +122,7 @@ class ProductCard extends StatelessWidget {
                     width: 105,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: product.productColor,
+                      color: widget.product.productColor,
                     ),
                   ),
                   Container(
@@ -111,7 +130,7 @@ class ProductCard extends StatelessWidget {
                     width: 90,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: product.productColor,
+                      color: widget.product.productColor,
                       border: Border.all(color: Colors.white, width: 1),
                     ),
                   ),
@@ -120,9 +139,9 @@ class ProductCard extends StatelessWidget {
                     right: 0,
                     bottom: -6,
                     child: Hero(
-                      tag: product.imageUrl,
+                      tag: widget.product.imageUrl,
                       child: Image.asset(
-                        product.imageUrl,
+                        widget.product.imageUrl,
                         height: 150,
                         width: 150,
                         fit: BoxFit.scaleDown,
@@ -133,7 +152,7 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             Text(
-              product.description,
+              widget.product.description,
               style: TextStyle(
                   color: Colors.indigo[400],
                   fontWeight: FontWeight.bold,
@@ -143,7 +162,7 @@ class ProductCard extends StatelessWidget {
               height: 10,
             ),
             Text(
-              '\$${product.price}',
+              '\$${widget.product.price}',
               style: TextStyle(
                   color: Colors.indigo,
                   fontWeight: FontWeight.bold,
@@ -156,7 +175,7 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RatingBar(
-                  initialRating: product.rating,
+                  initialRating: widget.product.rating,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -173,7 +192,7 @@ class ProductCard extends StatelessWidget {
                   },
                 ),
                 Text(
-                  '(${product.rating})',
+                  '(${widget.product.rating})',
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.4),
                       fontSize: 10,

@@ -8,7 +8,7 @@ class ListColors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
+      padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
       child: Row(
         //crossAxisAlignment: CrossAxisAlignment.start,
         //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
